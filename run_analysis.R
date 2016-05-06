@@ -34,8 +34,8 @@ run_analysis <- function() {
     ## 5. From the data set in step 4, creates a second, independent tidy data set
     ## with the average of each variable for each activity and each subject.
     joinedDf <- bind_cols(subject, x, y);
-    groupedDf <- group_by(joinedDf, subject, activity);
+    groupedDf <- group_by(joinedDf, activity, subject);
     summarizedDf <- summarise_each(groupedDf, funs(mean));
     
-    write.table(summarizedDf, file = "tidy_summarized_dataset.txt", row.names = FALSE);
+    write.table(summarizedDf, file = "tidy_summarized_dataset.txt", row.name = FALSE);
 }
