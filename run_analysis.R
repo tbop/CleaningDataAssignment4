@@ -3,17 +3,23 @@ run_analysis <- function() {
     library(plyr);
     library(dplyr);
     
+    if (!file.exists("dataset.zip")) 
+    {
+        download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", destfile="dataset.zip", mode="wb")
+        unzip ("dataset.zip")
+    }
+    
     ## Gathering official feature names
-    feature_names <- read.table("features.txt");
+    feature_names <- read.table("UCI HAR Dataset/features.txt");
     feature_names <- feature_names[[2]];
     
     ## 4. Appropriately labels the data set with descriptive variable names
-    x_test <- read.table("test/X_test.txt", col.names = feature_names);
-    x_train <- read.table("train/X_train.txt", col.names = feature_names);
-    y_test <- read.table("test/y_test.txt", col.names = c("activity"));
-    y_train <- read.table("train/y_train.txt", col.names = c("activity"));
-    subject_test <- read.table("test/subject_test.txt", col.names = c("subject"));
-    subject_train <- read.table("train/subject_train.txt", col.names = c("subject"));
+    x_test <- read.table("UCI HAR Dataset/test/X_test.txt", col.names = feature_names);
+    x_train <- read.table("UCI HAR Dataset/train/X_train.txt", col.names = feature_names);
+    y_test <- read.table("UCI HAR Dataset/test/y_test.txt", col.names = c("activity"));
+    y_train <- read.table("UCI HAR Dataset/train/y_train.txt", col.names = c("activity"));
+    subject_test <- read.table("UCI HAR Dataset/test/subject_test.txt", col.names = c("subject"));
+    subject_train <- read.table("UCI HAR Dataset/train/subject_train.txt", col.names = c("subject"));
     
     ## 1. Merges the training and the test sets to create one data set.
     x <- bind_rows(x_test, x_train);
